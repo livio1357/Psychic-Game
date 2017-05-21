@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Psychic Game</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+
+</head>
+<body>
+
+
+<div id=header>
+	<h1 align="center">The best game in the world</h1>
+</div>
+<div id="main">
+<ul>
+<li class="list-group-item" align="center"> Guess a letter maybe you win maybe you lose </li>
+	<li class="list-group-item" align="center">Wins <span class="badge">0 </span></li>
+	<li class="list-group-item" align="center">Losses <span class="badge">0 </span></li>
+	<li class="list-group-item" align="center">Gusses <span class="badge">0 </span></li>
+	<li class="list-group-item" align="center">You have tried and failed: <span class="badge">0 </span></li>
+
+	
+
+
+
+
+</ul>
+</div>
+
+<script type="text/javascript">
+
+
+var computerChoices = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
+
+
+var wins = 0;
+var losses = 0;
+var guessCount = 9;
+var guessTally = [];
+var setCompPick = "";
+
+
+document.onkeyup = function(event) {
+	var userPick = String.fromCharCode(event.keyCode).toLowerCase();
+	
+	if (guessCount == 9) {
+		var computerPick = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+		setCompPick = computerPick;
+	}
+
+
+	var userCheck = guessTally.indexOf(userPick);
+	if (userCheck < 0){
+			
+		if (userPick == setCompPick){
+
+			wins++;
+			guessCount = 9;
+			guessTally = [];
+		}else{
+			
+			guessTally.push(userPick);
+			guessCount--;
+		}
+		
+	}
+
+	
+	if (guessCount == 0) {
+		losses++;
+		guessCount = 9;
+		guessTally = [];
+	}				
+		
+		
+		var html = "<h2>Guess what letter I'm thinking of</h2>" +
+		"<h2>Wins: " + 
+		wins + 
+		"</h2>" +
+		"<h2>Losses: " + 
+		losses + 
+		"</h2>" +
+		"<h2>Guesses Left: " + 
+		guessCount + 
+		"</h2>" +
+		"<h2>Your Guesses so far: " + 
+		guessTally + 
+		"</h2>";
+
+		
+		document.querySelector('#main').innerHTML = html;
+}
+
+</script>
+</body>
+</html>
